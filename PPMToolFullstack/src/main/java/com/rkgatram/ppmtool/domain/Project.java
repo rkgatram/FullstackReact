@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class Project extends GenericEntity {
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +34,25 @@ public class Project extends GenericEntity {
     @NotNull(message = "Project description is required")
     private String description;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date start_date;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date end_date;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date created_At;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date updated_At;
+
+    @PrePersist
+    protected void onCreate() {
+        this.created_At = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updated_At = new Date();
+    }
 
 
     public Project() {
